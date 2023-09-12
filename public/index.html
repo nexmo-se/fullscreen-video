@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Full screen</title>
+  </head>
+  <style>
+    .pubFullScreen {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 2;
+    }
+    .subFullScreen {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+  </style>
+  <!-- import Montserrat & Roboto-Mono fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="https://unpkg.com/@vonage/vivid@3.x/styles/tokens/theme-light.css" />
+  <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+
+  <body>
+    <div id="wrapper">
+      <div id="publisher"></div>
+      <div id="subscribers"></div>
+    </div>
+  </body>
+  <script>
+    function toggleFullscreen() {
+      const pub = OT.publishers.find();
+      // const pub = publisher;
+      const sub = OT.subscribers.find();
+
+      const width = window.innerWidth || document.documentElement.clientWidth;
+      const height = window.innerHeight || document.documentElement.clientHeight;
+
+      let elem = document.querySelector('#wrapper');
+
+      if (!document.fullscreenElement) {
+        elem
+          .requestFullscreen()
+          .then(() => {
+            console.log('full screen enabled');
+            // pub.element.classList.add('pubFullScreen');
+            // pub.element.classList.remove('OT_publisher');
+            // sub.element.classList.add('subFullScreen');
+            // sub.element.classList.remove('OT_subscriber');
+            sub.element.style.width = `100%`;
+            sub.element.style.height = `100%`;
+            sub.element.style.position = 'absolute';
+            pub.element.style.position = 'absolute';
+            // pub.element.style.bottom = '0';
+            // pub.element.style.right = '0';
+            pub.element.style.zIndex = 2;
+          })
+          .catch((err) => {
+            alert(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+          });
+      } else {
+        console.log('exiting full screen');
+
+        document.exitFullscreen();
+        sub.element.style.width = `264px`;
+        sub.element.style.height = `198px`;
+        sub.element.style.position = 'relative';
+        pub.element.style.position = 'relative';
+        pub.element.style.top = '0';
+        pub.element.style.left = '0';
+        // pub.element.style.zIndex = 2;
+      }
+    }
+    document.addEventListener('keydown', (e) => {
+      const pub = OT.publishers.find();
+      const sub = OT.subscribers.find();
+      console.log(e.keyCode);
+      if (e.keyCode === 27) {
+        console.log('pressed escape');
+        document.exitFullscreen();
+        sub.element.style.width = `264px`;
+        sub.element.style.height = `198px`;
+        sub.element.style.position = 'relative';
+        pub.element.style.position = 'relative';
+        pub.element.style.top = '0';
+        pub.element.style.left = '0';
+      }
+    });
+  </script>
+  <script defer type="module" src="app.js"></script>
+</html>

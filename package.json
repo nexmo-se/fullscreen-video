@@ -1,0 +1,22 @@
+{
+  "name": "ec-recording",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vonage/vwc-button": "^2.37.0",
+    "@vonage/vwc-checkbox": "^2.37.2",
+    "@vonage/vwc-layout": "^2.37.2",
+    "@vonage/vwc-textfield": "^2.37.2",
+    "axios": "^1.3.4",
+    "express": "^4.18.2",
+    "opentok": "^2.15.2",
+    "path": "^0.12.7",
+    "uuidv4": "^6.2.13"
+  }
+}
